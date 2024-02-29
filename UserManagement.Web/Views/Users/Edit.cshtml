@@ -1,22 +1,11 @@
 ﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
 
-@*<h4>Edit Details</h4>
-<p>Id : @Model.Id</p>
-<p>Forename: @Model.Forename</p>
-<p>Surname: @Model.Surname</p>
-<p>Email: @Model.Email</p>
-<p>Account Status: @Model.IsActive</p>
-<a class="btn btn-primary" asp-controller="Users" asp-action="List">Back</a>*@
-
 <div class="container-fluid">
-    <h3>Add User</h3>
+    <h3>Edit User</h3>
     <div class="table-responsive">
         @using (Html.BeginForm("ConfirmedToEdit", "Users", new { Id = @Model.Id }, FormMethod.Post))
         {
             <table class="table table-striped">
-                <tr>
-                    <th colspan="2" align="center">Person Details</th>
-                </tr>
                 <tr>
                     <td>Id: </td>
                     <td>

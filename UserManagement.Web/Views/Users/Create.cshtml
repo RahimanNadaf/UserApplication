@@ -1,12 +1,10 @@
 ﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
 <div class="container-fluid">
+    <h3>Add User</h3>
     <div class="table-responsive">
         @using (Html.BeginForm("ConfirmedToAdd", "Users", FormMethod.Post))
         {
             <table class="table table-striped">
-                <tr>
-                    <th colspan="2" align="center">Add User</th>
-                </tr>              
                 <tr>
                     <td>ForeName: </td>
                     <td>
@@ -18,7 +16,7 @@
                     <td>SurName: </td>
                     <td>
                         @Html.TextBoxFor(m => m.Surname,new { @class = "popinputbox",required = "required" })
-                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "errormsg" })                      
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "errormsg" })
                     </td>
                 </tr>
                 <tr>
