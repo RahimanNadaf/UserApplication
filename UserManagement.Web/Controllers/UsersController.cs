@@ -68,15 +68,18 @@ public class UsersController : Controller
     [Route("confirmedtoedit")]
     public ActionResult ConfirmedToEdit(User res)
     {
-        var model = new UserListItemViewModel
+        if (ModelState.IsValid)
         {
-            Id = res.Id,
-            Forename = res.Forename,
-            Surname = res.Surname,
-            Email = res.Email,
-            IsActive = res.IsActive
-        };
-        _userService.Update(res);
+            var model = new UserListItemViewModel
+            {
+                Id = res.Id,
+                Forename = res.Forename,
+                Surname = res.Surname,
+                Email = res.Email,
+                IsActive = res.IsActive
+            };
+            _userService.Update(res);
+        }
         return RedirectToAction("List");
     }
 
@@ -99,15 +102,19 @@ public class UsersController : Controller
     [Route("confirmedtoadd")]
     public ActionResult ConfirmedToAdd(User res)
     {
-        var model = new UserListItemViewModel
+        if(ModelState.IsValid)
         {
-            Id = res.Id,
-            Forename = res.Forename,
-            Surname = res.Surname,
-            Email = res.Email,
-            IsActive = res.IsActive
-        };
-        _userService.Add(res);
+            var model = new UserListItemViewModel
+            {
+                Id = res.Id,
+                Forename = res.Forename,
+                Surname = res.Surname,
+                Email = res.Email,
+                IsActive = res.IsActive
+            };
+            _userService.Add(res);
+        }
         return RedirectToAction("List");
+
     }
 }
