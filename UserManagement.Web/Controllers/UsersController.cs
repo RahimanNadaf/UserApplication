@@ -79,6 +79,7 @@ public class UsersController : Controller
                 IsActive = res.IsActive
             };
             _userService.Update(res);
+            TempData["message"] = "User edited successfully";
         }
         return RedirectToAction("List");
     }
@@ -89,6 +90,7 @@ public class UsersController : Controller
     {
 
         var deletedUser = _userService.Delete(id);
+        TempData["message"] = "User deleted successfully";
         return RedirectToAction("List");
     }
 
@@ -113,6 +115,7 @@ public class UsersController : Controller
                 IsActive = res.IsActive
             };
             _userService.Add(res);
+            TempData["message"] = "User added successfully";
         }
         return RedirectToAction("List");
 
