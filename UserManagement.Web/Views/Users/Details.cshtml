@@ -1,0 +1,10 @@
+﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+<div class="container">
+    <h4>User details</h4>
+    <p>Id : @Model.Id</p>
+    <p>Forename: @Model.Forename</p>
+    <p>Surname: @Model.Surname</p>
+    <p>Email: @Model.Email</p>
+    <p>Account Status: @Model.IsActive</p>
+    <a class="btn btn-primary" asp-controller="Users" asp-action="List">Back</a>
+</div>

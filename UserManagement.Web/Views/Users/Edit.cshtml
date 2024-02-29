@@ -1,0 +1,58 @@
+﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+
+@*<h4>Edit Details</h4>
+<p>Id : @Model.Id</p>
+<p>Forename: @Model.Forename</p>
+<p>Surname: @Model.Surname</p>
+<p>Email: @Model.Email</p>
+<p>Account Status: @Model.IsActive</p>
+<a class="btn btn-primary" asp-controller="Users" asp-action="List">Back</a>*@
+
+<div class="container-fluid">
+    <h3>Add User</h3>
+    <div class="table-responsive">
+        @using (Html.BeginForm("ConfirmedToEdit", "Users", new { Id = @Model.Id }, FormMethod.Post))
+        {
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2" align="center">Person Details</th>
+                </tr>
+                <tr>
+                    <td>Id: </td>
+                    <td>
+                        @Model.Id
+                    </td>
+                </tr>
+                <tr>
+                    <td>ForeName: </td>
+                    <td>
+                        @Html.TextBoxFor(m => @Model.Forename, new{ @class = "popinputbox",required = "required" })
+                        @Html.ValidationMessageFor(model => model.Forename, "", new { @class = "errormsg" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>SurName: </td>
+                    <td>
+                        @Html.TextBoxFor(m => @Model.Surname, new{ @class = "popinputbox",required = "required" })
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "errormsg" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td>
+                        @Html.TextBoxFor(m => @Model.Email, new { @class = "popinputbox", type = "email",required = "required" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errormsg" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Active Status: </td>
+                    <td>
+                        @Html.DropDownListFor(modelItem => modelItem.IsActive,new [] { new SelectListItem { Text = "Yes", Value="True" } , new SelectListItem { Text = "No", Value="False"}},new { @class = "dropdown btn btn-default dropdown-toggle" })
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Save changes" class="btn btn-primary" onclick="return confirm('Are you sure you want to save the changes?')" />
+            <a class="btn btn-danger" asp-controller="Users" asp-action="List">Cancel</a>
+        }
+    </div>
+</div>
