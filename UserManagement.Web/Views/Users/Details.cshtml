@@ -1,11 +1,43 @@
-﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+﻿@model UserManagement.Web.Models.Users.UserDetailsLogViewModel
 <div class="container">
     <h3>User details</h3>
-    <p>Id : @Model.Id</p>
-    <p>Forename: @Model.Forename</p>
-    <p>Surname: @Model.Surname</p>
-    <p>Email: @Model.Email</p>
-    <p>Date Of Birth: @Model.DateOfBirth </p>
-    <p>Account Status: @Model.IsActive</p>
+    <p>Id : @Model.userItem.Id</p>
+    <p>Forename: @Model.userItem.Forename</p>
+    <p>Surname: @Model.userItem.Surname</p>
+    <p>Email: @Model.userItem.Email</p>
+    <p>Date Of Birth: @Model.userItem.DateOfBirth </p>
+    <p>Account Status: @Model.userItem.IsActive</p>
+</div>
+<div class="table-responsive">
+    <h3>User History</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Message</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.userLogs.Items)
+            {
+                <tr>
+                    <td>
+                        @item.UserId
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.ShowMessage
+                    </td>
+                    <td>
+                        @item.Details
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
     <a class="btn btn-primary" asp-controller="Users" asp-action="List">Back</a>
 </div>

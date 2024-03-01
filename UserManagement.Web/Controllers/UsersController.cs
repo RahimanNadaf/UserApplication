@@ -1,15 +1,21 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
+using UserManagement.Web.Logger;
 using UserManagement.Web.Models.Users;
-
 namespace UserManagement.WebMS.Controllers;
 
 [Route("users")]
 public class UsersController : Controller
 {
     private readonly IUserService _userService;
-    public UsersController(IUserService userService) => _userService = userService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    public UsersController(IUserService userService, IWebHostEnvironment webHostEnvironment) {
+        _userService = userService;
+        _webHostEnvironment = webHostEnvironment;
+    } 
 
     [HttpGet]
     public ViewResult List(bool? activeOnly = null)
@@ -42,7 +48,14 @@ public class UsersController : Controller
         {
             Items = items
         };
-
+        var log = new Logs()
+        {
+            UserId = 0,
+            Type = "Info",
+            ShowMessage = "User list is loaded",
+            Details = "user list is loaded at :" + DateTime.Now.ToLongDateString() + DateTime.Now.ToLongTimeString()
+        };
+        LogEvents.LogToFile(log, _webHostEnvironment);
         return View(model);
     }
 
@@ -64,7 +77,37 @@ public class UsersController : Controller
             DateOfBirth = res.DateOfBirth,
             IsActive = res.IsActive
         };
-        return View(model);
+        var log = new Logs()
+        {
+            UserId = id,
+            Type = "Info",
+            ShowMessage = "User details viewed",
+            Details = "Viewed user details at :" + DateTime.Now.ToLongDateString() + DateTime.Now.ToLongTimeString()
+        };
+        LogEvents.LogToFile(log, _webHostEnvironment);
+        var logs = LogEvents.ReadLogs(_webHostEnvironment);
+        var _logModel = new LogsViewModel();
+        if (logs != null)
+        {
+            var items = logs.Where(x => x.UserId == id).Select(p => new Logs
+            {
+                UserId = p.UserId,
+                Details = p.Details,
+                ShowMessage = p.ShowMessage,
+                Type = p.Type,
+            }).ToList();
+
+            _logModel = new LogsViewModel
+            {
+                Items = items
+            };
+        }
+        var userLogViewModels = new UserDetailsLogViewModel
+        {
+            userItem = model,
+            userLogs = _logModel
+        };
+        return View(userLogViewModels);
     }
 
     [Route("edit/{id:int}")]
@@ -99,6 +142,15 @@ public class UsersController : Controller
                 IsActive = res.IsActive
             };
             _userService.Update(res);
+
+            var log = new Logs()
+            {
+                UserId = res.Id,
+                Type = "Info",
+                ShowMessage = "Edited user details",
+                Details = "User edited successfully at :" + DateTime.Now.ToLongDateString() + DateTime.Now.ToLongTimeString()
+            };
+            LogEvents.LogToFile(log, _webHostEnvironment);
             TempData["message"] = "User edited successfully";
         }
         return RedirectToAction("List");
@@ -111,6 +163,14 @@ public class UsersController : Controller
 
         var deletedUser = _userService.Delete(id);
         TempData["message"] = "User deleted successfully";
+        var log = new Logs()
+        {
+            UserId = id,
+            Type = "Info",
+            ShowMessage = "deleted user",
+            Details = "User was deleted at :" + DateTime.Now.ToLongDateString() + DateTime.Now.ToLongTimeString()
+        };
+        LogEvents.LogToFile(log, _webHostEnvironment);
         return RedirectToAction("List");
     }
 
@@ -137,6 +197,14 @@ public class UsersController : Controller
             };
             _userService.Add(res);
             TempData["message"] = "User added successfully";
+            var log = new Logs()
+            {
+                UserId = res.Id,
+                Type = "Info",
+                ShowMessage = "Added new user",
+                Details = "Added new user at :" + DateTime.Now.ToLongDateString() + DateTime.Now.ToLongTimeString()
+            };
+            LogEvents.LogToFile(log, _webHostEnvironment);
         }
         return RedirectToAction("List");
 

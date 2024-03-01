@@ -1,0 +1,63 @@
+[
+{
+  "UserId": 0,
+  "Type": "Info",
+  "ShowMessage": "User list is loaded",
+  "Details": "user list is loaded at :01 March 202417:15:26"
+}
+,
+{
+  "UserId": 1,
+  "Type": "Info",
+  "ShowMessage": "User details viewed",
+  "Details": "Viewed user details at :01 March 202417:15:29"
+}
+,
+{
+  "UserId": 0,
+  "Type": "Info",
+  "ShowMessage": "User list is loaded",
+  "Details": "user list is loaded at :01 March 202417:15:31"
+}
+,
+{
+  "UserId": 2,
+  "Type": "Info",
+  "ShowMessage": "deleted user",
+  "Details": "User was deleted at :01 March 202417:15:39"
+}
+,
+{
+  "UserId": 0,
+  "Type": "Info",
+  "ShowMessage": "User list is loaded",
+  "Details": "user list is loaded at :01 March 202417:15:39"
+}
+,
+{
+  "UserId": 1,
+  "Type": "Info",
+  "ShowMessage": "User details viewed",
+  "Details": "Viewed user details at :01 March 202417:15:41"
+}
+,
+{
+  "UserId": 0,
+  "Type": "Info",
+  "ShowMessage": "User list is loaded",
+  "Details": "user list is loaded at :01 March 202417:15:43"
+}
+,
+{
+  "UserId": 6,
+  "Type": "Info",
+  "ShowMessage": "User details viewed",
+  "Details": "Viewed user details at :01 March 202417:15:45"
+}
+,
+{
+  "UserId": 0,
+  "Type": "Info",
+  "ShowMessage": "User list is loaded",
+  "Details": "user list is loaded at :01 March 202417:15:47"
+}
