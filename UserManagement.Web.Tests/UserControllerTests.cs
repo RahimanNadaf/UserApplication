@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
@@ -44,5 +45,7 @@ public class UserControllerTests
     }
 
     private readonly Mock<IUserService> _userService = new();
-    private UsersController CreateController() => new(_userService.Object);
+
+    private readonly Mock<IWebHostEnvironment> _webHostEnvironment = new Mock<IWebHostEnvironment>();
+    private UsersController CreateController() => new(_userService.Object,_webHostEnvironment.Object);
 }
