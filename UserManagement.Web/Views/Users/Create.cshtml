@@ -27,6 +27,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Date Of Birth: </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "popinputbox",placeholder = "Date Of Birth", type = "dateOfBirth",required = "required" })
+                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "errormsg" })
+                    </td>
+                </tr>
+                <tr>
                     <td>Active Status: </td>
                     <td>
                         @Html.DropDownListFor(modelItem => modelItem.IsActive,new [] { new SelectListItem { Text = "Yes", Value="True" } , new SelectListItem { Text = "No", Value="False"}},new { @class = "dropdown btn btn-default dropdown-toggle" })

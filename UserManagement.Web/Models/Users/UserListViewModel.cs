@@ -15,5 +15,9 @@ public class UserListItemViewModel
     [Required]
     [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email format")]
     public string? Email { get; set; }
+
+    [Required(ErrorMessage = "Date of birth is required")]
+    [RegularExpression(@"^\d{2}-\d{2}-\d{4}$", ErrorMessage = "Invalid date format. Please use dd-MM-yyyy")]
+    public string? DateOfBirth { get; set; }
     public bool IsActive { get; set; }
 }

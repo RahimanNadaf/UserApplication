@@ -12,24 +12,41 @@ public class UsersController : Controller
     public UsersController(IUserService userService) => _userService = userService;
 
     [HttpGet]
-    public ViewResult List()
+    public ViewResult List(bool? activeOnly = null)
     {
-        var items = _userService.GetAll().Select(p => new UserListItemViewModel
+        var users = _userService.GetAll();
+
+        if (activeOnly.HasValue)
+        {
+            if (activeOnly == true)
+            {
+                users = users.Where(u => u.IsActive);
+            }
+            else
+            {
+                users = users.Where(u => !u.IsActive);
+            }
+        }
+
+        var items = users.Select(p => new UserListItemViewModel
         {
             Id = p.Id,
             Forename = p.Forename,
             Surname = p.Surname,
             Email = p.Email,
+            DateOfBirth  = p.DateOfBirth,
             IsActive = p.IsActive
-        });
+        }).ToList();
 
         var model = new UserListViewModel
         {
-            Items = items.ToList()
+            Items = items
         };
 
         return View(model);
     }
+
+
 
     [Route("details/{id:int}")]
     public ActionResult Details(int id)
@@ -44,6 +61,7 @@ public class UsersController : Controller
             Forename = res.Forename,
             Surname = res.Surname,
             Email = res.Email,
+            DateOfBirth = res.DateOfBirth,
             IsActive = res.IsActive
         };
         return View(model);
@@ -59,6 +77,7 @@ public class UsersController : Controller
             Forename = res.Forename,
             Surname = res.Surname,
             Email = res.Email,
+            DateOfBirth = res.DateOfBirth,
             IsActive = res.IsActive
         };
         return View(model);
@@ -76,6 +95,7 @@ public class UsersController : Controller
                 Forename = res.Forename,
                 Surname = res.Surname,
                 Email = res.Email,
+                DateOfBirth = res.DateOfBirth,
                 IsActive = res.IsActive
             };
             _userService.Update(res);
@@ -112,6 +132,7 @@ public class UsersController : Controller
                 Forename = res.Forename,
                 Surname = res.Surname,
                 Email = res.Email,
+                DateOfBirth = res.DateOfBirth,
                 IsActive = res.IsActive
             };
             _userService.Add(res);
