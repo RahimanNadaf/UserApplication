@@ -36,7 +36,7 @@
                 <tr>
                     <td>Date Of Birth: </td>
                     <td>
-                        @Html.TextBoxFor(m => @Model.DateOfBirth, new { @class = "popinputbox", type = "dateOfBirth",required = "required" })
+                        @Html.TextBoxFor(m => @Model.DateOfBirth, new {type="date",placeholder="yyyy-mm-dd", @class="form-control",required = "required" })
                         @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "errormsg" })
                     </td>
                 </tr>

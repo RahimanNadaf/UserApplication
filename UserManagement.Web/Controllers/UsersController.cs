@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using UserManagement.Models;
@@ -132,15 +133,10 @@ public class UsersController : Controller
     {
         if (ModelState.IsValid)
         {
-            var model = new UserListItemViewModel
-            {
-                Id = res.Id,
-                Forename = res.Forename,
-                Surname = res.Surname,
-                Email = res.Email,
-                DateOfBirth = res.DateOfBirth,
-                IsActive = res.IsActive
-            };
+            var dateTime = res.DateOfBirth;
+            DateTime dt = DateTime.ParseExact(dateTime, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            string formattedDate = Convert.ToDateTime(dt).Day.ToString() + "/" + Convert.ToDateTime(dt).Month.ToString() + "/" + Convert.ToDateTime(dt).Year.ToString();
+            res.DateOfBirth = formattedDate;
             _userService.Update(res);
 
             var log = new Logs()
@@ -184,17 +180,13 @@ public class UsersController : Controller
     [Route("confirmedtoadd")]
     public ActionResult ConfirmedToAdd(User res)
     {
+        
         if(ModelState.IsValid)
         {
-            var model = new UserListItemViewModel
-            {
-                Id = res.Id,
-                Forename = res.Forename,
-                Surname = res.Surname,
-                Email = res.Email,
-                DateOfBirth = res.DateOfBirth,
-                IsActive = res.IsActive
-            };
+            var dateTime = res.DateOfBirth;
+            DateTime dt = DateTime.ParseExact(dateTime, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            string formattedDate = Convert.ToDateTime(dt).Day.ToString() + "/" + Convert.ToDateTime(dt).Month.ToString() + "/" + Convert.ToDateTime(dt).Year.ToString();
+            res.DateOfBirth=formattedDate;
             _userService.Add(res);
             TempData["message"] = "User added successfully";
             var log = new Logs()
