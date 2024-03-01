@@ -29,8 +29,8 @@
                             @item.Details
                         </td>
                         <td>
-                            @using (Html.BeginForm("Details", "Log", FormMethod.Post))
-                            {
+                            @using (Html.BeginForm("Details", "Log",item, FormMethod.Post))
+                                    {
                                 <input type="submit" value="View" class="btn btn-primary" />
                             }
                         </td>
